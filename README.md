@@ -5,6 +5,7 @@
 Server Name Indication (SNI) is a critical extension of the TLS protocol that allows a client to specify which hostname it is attempting to connect to during the TLS handshake. In restrictive network environments  such as those enforcing deep packet inspection, DNS filtering, or national-level censorship  identifying a **valid, unblocked SNI** is essential for establishing legitimate encrypted tunnels through proxies like **V2Ray/Xray (VLESS over TLS)**.
 
 This project presents a purpose-built **SNI Reconnaissance Tool**  a Python desktop application that automates the discovery of valid SNI candidates by performing **dual-stage testing**: a TLS handshake probe followed by a firewall reachability check.
+
 ---
 
 ## 🌐 SNI & Proxy Tunnels  Overview
