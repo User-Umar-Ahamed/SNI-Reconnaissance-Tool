@@ -2,15 +2,14 @@
 
 ## 🧠 Introduction
 
-Server Name Indication (SNI) is a critical extension of the TLS protocol that allows a client to specify which hostname it is attempting to connect to during the TLS handshake. In restrictive network environments — such as those enforcing deep packet inspection, DNS filtering, or national-level censorship — identifying a **valid, unblocked SNI** is essential for establishing legitimate encrypted tunnels through proxies like **V2Ray/Xray (VLESS over TLS)**.
+Server Name Indication (SNI) is a critical extension of the TLS protocol that allows a client to specify which hostname it is attempting to connect to during the TLS handshake. In restrictive network environments  such as those enforcing deep packet inspection, DNS filtering, or national-level censorship  identifying a **valid, unblocked SNI** is essential for establishing legitimate encrypted tunnels through proxies like **V2Ray/Xray (VLESS over TLS)**.
 
-This project presents a purpose-built **SNI Reconnaissance Tool** — a Python desktop application that automates the discovery of valid SNI candidates by performing **dual-stage testing**: a TLS handshake probe followed by a firewall reachability check. The tool was developed as the original software component of a Final Year Project titled *"Implementing a Secure and Censorship-Resistant Proxy Tunnel for Restricted Network Environments"* at Kingston University London.
-
+This project presents a purpose-built **SNI Reconnaissance Tool**  a Python desktop application that automates the discovery of valid SNI candidates by performing **dual-stage testing**: a TLS handshake probe followed by a firewall reachability check.
 ---
 
-## 🌐 SNI & Proxy Tunnels — Overview
+## 🌐 SNI & Proxy Tunnels  Overview
 
-In a VLESS-over-TLS proxy setup, the client disguises its traffic as legitimate HTTPS traffic to a known domain. The **serverName** field in the TLS configuration determines which domain is presented as the SNI during the handshake. If that domain is blocked or flagged, the connection fails — even if the underlying proxy server is functioning correctly.
+In a VLESS-over-TLS proxy setup, the client disguises its traffic as legitimate HTTPS traffic to a known domain. The **serverName** field in the TLS configuration determines which domain is presented as the SNI during the handshake. If that domain is blocked or flagged, the connection fails  even if the underlying proxy server is functioning correctly.
 
 ### Why SNI Selection Matters:
 - A blocked domain causes immediate connection failure at the firewall level.
@@ -26,7 +25,7 @@ This tool solves this problem by systematically testing domains across multiple 
 | Component | Description |
 |---|---|
 | **main.py** | Single entry-point launcher; hosts all GUI logic using CustomTkinter |
-| **core/scanners.py** | Dual-stage scanning engine — TLS handshake + reachability check |
+| **core/scanners.py** | Dual-stage scanning engine  TLS handshake + reachability check |
 | **core/database.py** | SQLite persistence layer with CASCADE DELETE for scan history |
 | **core/export_manager.py** | Multi-format export engine (CSV, JSON, TXT) |
 | **data/common_sites.txt** | Curated domain list for the Common Sites scan mode |
@@ -34,22 +33,22 @@ This tool solves this problem by systematically testing domains across multiple 
 
 ---
 
-## ⚙️ How It Works — Dual-Stage Testing
+## ⚙️ How It Works  Dual-Stage Testing
 
 The scanner applies a two-step validation process to every domain:
 
-### Stage 1 — DNS Resolution Check
+### Stage 1  DNS Resolution Check
 The tool resolves the domain via `socket.gethostbyname()`. If the domain resolves to a blocked IP (e.g., `0.0.0.0`, `127.0.0.1`, or private RFC 1918 ranges), it is immediately marked as **Blocked** without further testing.
 
-### Stage 2 — TLS Handshake Probe
+### Stage 2  TLS Handshake Probe
 Using Python's `ssl` library, the tool attempts a full TLS handshake on port 443, presenting the domain as the SNI value. A successful handshake confirms the domain is valid for use in TLS-based proxy configurations.
 
-### Stage 3 — Firewall Reachability Verification
+### Stage 3  Firewall Reachability Verification
 A secondary socket connection verifies the domain is not blocked at the network perimeter. Domains that pass TLS but fail reachability are still marked **Blocked**, as they would not function reliably as an SNI in restricted environments.
 
 ### Results:
-- ✅ **Valid SNI** — TLS handshake succeeded AND domain is reachable — **safe to use**
-- 🚫 **Blocked** — Domain is intercepted or unreachable — **do not use**
+- ✅ **Valid SNI**  TLS handshake succeeded AND domain is reachable  **safe to use**
+- 🚫 **Blocked**  Domain is intercepted or unreachable  **do not use**
 
 ---
 
@@ -57,7 +56,7 @@ A secondary socket connection verifies the domain is not blocked at the network 
 
 1. **Designed the tool architecture** around the CustomTkinter GUI framework
 2. **Implemented the BaseScanner class** with `ThreadPoolExecutor` for parallel scanning (up to 20 workers)
-3. **Developed three scan modes** — DNS Cache, Common Sites, and Custom Domain
+3. **Developed three scan modes**  DNS Cache, Common Sites, and Custom Domain
 4. **Built the SQLite database layer** with relational schema and CASCADE DELETE
 5. **Integrated the ExportManager** supporting CSV, JSON, and plain-text output
 6. **Packaged everything under main.py** as a single-entry-point desktop application
@@ -67,7 +66,7 @@ A secondary socket connection verifies the domain is not blocked at the network 
 ## 🖥️ Scan Modes
 
 ### 🔹 1. DNS Cache Scan (Windows)
-Extracts domains from the local Windows DNS resolver cache using `ipconfig /displaydns`. These are domains the machine has recently resolved — making them highly relevant to the user's own browsing context and network environment.
+Extracts domains from the local Windows DNS resolver cache using `ipconfig /displaydns`. These are domains the machine has recently resolved  making them highly relevant to the user's own browsing context and network environment.
 
 ### 🔹 2. Common Sites Scan
 Tests a curated list of globally recognised domains (search engines, CDNs, social platforms, streaming services) stored in `data/common_sites.txt`. Useful for quick identification of reachable CDN-backed domains that work well as SNI fronts.
@@ -108,7 +107,7 @@ Pillow>=10.0.0
 2. From the **Dashboard**, click **New Scan**
 3. Select a scan type: `DNS Cache`, `Common Sites`, or `Custom`
 4. Monitor real-time progress as domains are tested in parallel
-5. Review results — domains marked ✅ **Valid SNI** are safe to use
+5. Review results  domains marked ✅ **Valid SNI** are safe to use
 6. Export results in CSV, JSON, or TXT format as needed
 7. Access previous scans anytime via **History**
 
@@ -195,15 +194,14 @@ CREATE TABLE results (
 
 ## 🏁 Conclusion
 
-The SNI Reconnaissance Tool demonstrates how targeted, automated network probing can solve a real-world problem in censorship-circumvention infrastructure. By combining TLS handshake validation with firewall reachability checking in a parallel, GUI-driven application, the tool provides operators with confident, actionable SNI candidates — removing the guesswork from proxy tunnel configuration in restricted environments.
+The SNI Reconnaissance Tool demonstrates how targeted, automated network probing can solve a real-world problem in censorship-circumvention infrastructure. By combining TLS handshake validation with firewall reachability checking in a parallel, GUI-driven application, the tool provides operators with confident, actionable SNI candidates  removing the guesswork from proxy tunnel configuration in restricted environments.
 
 ---
 
 ## 👨‍💻 Built By
 
-**Umar Ahamed**  
-Cybersecurity Student • Kingston University London  
-Final Year Project — CI6600 | BSc Cyber Security & Digital Forensics  
+**Umar Ahamed**
+Cybersecurity Student • Sri Lanka
 Passionate about **network security, censorship circumvention**, and **secure systems development.**
 
 ⭐ Connect via GitHub: [User-Umar-Ahamed](https://github.com/User-Umar-Ahamed)
