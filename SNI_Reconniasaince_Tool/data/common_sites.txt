@@ -1,0 +1,76 @@
+# Common domains for SNI testing
+# Lines starting with # are comments and will be skipped
+# Add or remove domains as needed
+
+# Search Engines & Tech Giants
+google.com
+bing.com
+yahoo.com
+duckduckgo.com
+
+# Social Media
+facebook.com
+twitter.com
+instagram.com
+linkedin.com
+reddit.com
+pinterest.com
+tumblr.com
+
+# Video & Streaming
+youtube.com
+netflix.com
+twitch.tv
+vimeo.com
+dailymotion.com
+
+# E-commerce
+amazon.com
+ebay.com
+aliexpress.com
+walmart.com
+target.com
+
+# Microsoft Services
+microsoft.com
+outlook.com
+office.com
+live.com
+xbox.com
+
+# Apple Services
+apple.com
+icloud.com
+
+# Developer & Tech
+github.com
+gitlab.com
+stackoverflow.com
+medium.com
+dev.to
+
+# News & Media
+wikipedia.org
+bbc.com
+cnn.com
+nytimes.com
+theguardian.com
+
+# CDN & Cloud Services
+cloudflare.com
+akamai.com
+fastly.com
+
+# Messaging & Communication
+whatsapp.com
+telegram.org
+discord.com
+slack.com
+zoom.us
+
+# Other Popular Sites
+dropbox.com
+imgur.com
+soundcloud.com
+spotify.com
+wordpress.com
